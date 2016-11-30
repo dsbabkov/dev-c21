@@ -61,12 +61,12 @@ double Rect::right() const
     return bottomRight_.x();
 }
 
-Shape *Rect::clone() const
+IShape *Rect::clone() const
 {
     return new Rect(*this);
 }
 
-bool Rect::operator ==(const Shape &other) const
+bool Rect::operator ==(const IShape &other) const
 {
     return typeid(other) == typeid(*this) ?
                 *this == static_cast<const Rect &>(other) :

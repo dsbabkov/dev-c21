@@ -11,10 +11,14 @@ int main()
     List list;
 
     for (int i = 0; i < 5; ++i){
+//        (rand() & 1) ?
+//                    list.append(Circle(Point(rand(), rand()), rand())) :
+//                    list.append(Rect(rand(), rand(), rand(), rand()));
         (rand() & 1) ?
-                    list.append(Circle(Point(rand(), rand()), rand())) :
-                    list.append(Rect(rand(), rand(), rand(), rand()));
+                    list.append(Circle(Point(1, 2), 3)) :
+                    list.append(Rect(1, 2, 3, 5));
     }
+    std::cout << list;
 
     {
         Circle circle({1, 2}, 5);
@@ -24,8 +28,8 @@ int main()
     list.prepend(Rect(1, 2, 3, 4));
 
     Circle circle({1, 2}, 5);
-    Shape *s1 = circle.clone();
-    Shape *s2 = circle.clone();
+    IShape *s1 = circle.clone();
+    IShape *s2 = circle.clone();
 
     std::cout << (*s1 == *s2) << '\n';
 
@@ -34,7 +38,7 @@ int main()
     delete pc;
 
 //    std::cout << list.removeFirst(Circle({1, 2}, 5)) << '\n';
-    std::cout << list;
+//    std::cout << list;
 
     return 0;
 }

@@ -1,5 +1,5 @@
 #include "Node.h"
-#include "Shape.h"
+#include "IShape.h"
 
 Node::Node()
     : next{}
@@ -8,17 +8,15 @@ Node::Node()
 {
 }
 
-Node::Node(Node *before, const Shape &shape)
+Node::Node(Node *before, const IShape &shape)
     : next{before}
     , prev{before->prev}
     , shapePtr{shape.clone()}
 {
-    if (before->prev){
-        before->prev->next = this;
-    }
+    next->prev = this;
 
-    if (before->next){
-        before->next->prev = this;
+    if (prev){
+        prev->next = this;
     }
 }
 

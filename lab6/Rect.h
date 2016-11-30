@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Point.h"
-#include "Shape.h"
+#include "AbstractColoredShape.h"
 
-class Rect: public Shape
+class Rect: public AbstractColoredShape
 {
 public:
     Rect();
@@ -21,8 +21,8 @@ public:
     double left() const;
     double right() const;
 
-    virtual Shape *clone() const override;
-    virtual bool operator ==(const Shape &other) const override;
+    virtual IShape *clone() const override;
+    virtual bool operator ==(const IShape &other) const override;
     virtual double square() const override;
     virtual void print(std::ostream &os) const override;
 

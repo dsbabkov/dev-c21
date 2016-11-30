@@ -3,7 +3,7 @@
 #include <iosfwd>
 #include <memory>
 
-class Shape;
+class IShape;
 class List;
 
 class Node
@@ -12,11 +12,11 @@ class Node
     friend std::ostream &operator <<(std::ostream &os, const List &list);
 public:
     Node();
-    Node(Node *before, const Shape &shape);
+    Node(Node *before, const IShape &shape);
     ~Node();
 
 private:
     Node *next;
     Node *prev;
-    std::unique_ptr<Shape> shapePtr;
+    std::unique_ptr<IShape> shapePtr;
 };

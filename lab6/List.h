@@ -10,9 +10,9 @@ class List
 public:
     List();
 
-    void append(const Shape &shape);
-    void prepend(const Shape &shape);
-    bool removeFirst(const Shape &shape);
+    void append(const IShape &shape);
+    void prepend(const IShape &shape);
+    bool removeFirst(const IShape &shape);
 
 private:
     void glueHeadToTail();

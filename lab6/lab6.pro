@@ -8,18 +8,20 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    Shape.cpp \
     Point.cpp \
     Rect.cpp \
     Circle.cpp \
     Node.cpp \
-    List.cpp
+    List.cpp \
+    IShape.cpp \
+    AbstractColoredShape.cpp
 
 HEADERS += \
-    Shape.h \
     Point.h \
     Rect.h \
     Circle.h \
     Node.h \
-    List.h
+    List.h \
+    IShape.h \
+    AbstractColoredShape.h
 

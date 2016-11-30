@@ -26,7 +26,7 @@ void Circle::setRadius(double radius)
     radius_ = radius;
 }
 
-Shape *Circle::clone() const
+IShape *Circle::clone() const
 {
     return new Circle(*this);
 }
@@ -36,7 +36,7 @@ double Circle::square() const
     return pi * pow(radius_, 2);
 }
 
-bool Circle::operator ==(const Shape &other) const
+bool Circle::operator ==(const IShape &other) const
 {
     return typeid(other) == typeid(*this) ?
                 this->Circle::operator ==(static_cast<const Circle &>(other)) :

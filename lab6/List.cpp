@@ -1,5 +1,6 @@
 #include "List.h"
-#include "Shape.h"
+#include "IShape.h"
+#include <iostream>
 
 List::List()
     : head_{}
@@ -9,19 +10,19 @@ List::List()
     glueHeadToTail();
 }
 
-void List::append(const Shape &shape)
+void List::append(const IShape &shape)
 {
     new Node(&tail_, shape);
     ++size_;
 }
 
-void List::prepend(const Shape &shape)
+void List::prepend(const IShape &shape)
 {
     new Node(head_.next, shape);
     ++size_;
 }
 
-bool List::removeFirst(const Shape &shape)
+bool List::removeFirst(const IShape &shape)
 {
     for (Node *p = head_.next; p != &tail_; p = p->next){
         if (*p->shapePtr == shape){
@@ -44,7 +45,7 @@ void List::glueHeadToTail()
 std::ostream &operator <<(std::ostream &os, const List &list)
 {
     for (Node *p = list.head_.next; p != &list.tail_; p = p->next){
-        os << *p->shapePtr;
+        os << *p->shapePtr << '\n';
     }
     return os;
 }
