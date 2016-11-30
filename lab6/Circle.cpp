@@ -50,7 +50,8 @@ void Circle::print(std::ostream &os) const
 
 bool Circle::operator ==(const Circle &other) const
 {
-    return center_ == other.center_ &&
+    return AbstractColoredShape::operator == (other) &&
+            center_ == other.center_ &&
             radius_ == other.radius_;
 }
 

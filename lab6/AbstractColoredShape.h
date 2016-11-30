@@ -15,7 +15,8 @@ public:
     Color color() const;
     void setColor(const Color &color);
 
-private:
-    Color color_;
+    bool operator == (const AbstractColoredShape &other) const;
 
+private:
+    Color color_;    
 };

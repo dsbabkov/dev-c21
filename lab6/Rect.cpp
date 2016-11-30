@@ -87,7 +87,8 @@ void Rect::print(std::ostream &os) const
 
 bool Rect::operator ==(const Rect &other) const
 {
-    return topLeft_ == other.topLeft_ &&
+    return AbstractColoredShape::operator == (other) &&
+            topLeft_ == other.topLeft_ &&
             bottomRight_ == other.bottomRight_;
 }
 
