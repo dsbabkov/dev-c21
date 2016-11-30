@@ -71,4 +71,5 @@ bool Point::operator ==(const Point &other) const
 std::ostream &operator <<(std::ostream &os, const Point &point)
 {
     os << '{' << point.x() << "; " << point.y() << '}';
+    return os;
 }
