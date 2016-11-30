@@ -26,7 +26,7 @@ public:
     virtual double square() const override;
     virtual void print(std::ostream &os) const override;
 
-    bool operator == (const Rect &other);
+    bool operator == (const Rect &other) const;
 
 private:
     Point topLeft_;
