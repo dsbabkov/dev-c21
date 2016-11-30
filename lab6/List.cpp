@@ -10,6 +10,13 @@ List::List()
     glueHeadToTail();
 }
 
+List::~List()
+{
+    while(head_.next != &tail_){
+        delete head_.next;
+    }
+}
+
 void List::append(const IShape &shape)
 {
     new Node(&tail_, shape);

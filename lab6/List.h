@@ -9,6 +9,7 @@ class List
     friend std::ostream &operator << (std::ostream &os, const List &list);
 public:
     List();
+    ~List();
 
     void append(const IShape &shape);
     void prepend(const IShape &shape);
