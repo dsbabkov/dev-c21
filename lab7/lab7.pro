@@ -5,10 +5,16 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     MyString.cpp \
-    Counter.cpp
+    Counter.cpp \
+    StackOverflowException.cpp \
+    StackUnderflowException.cpp \
+    StackOutOfRangeException.cpp
 
 HEADERS += \
     MyString.h \
     Counter.h \
     Swap.h \
-    MyStack.h
+    MyStack.h \
+    StackOverflowException.h \
+    StackUnderflowException.h \
+    StackOutOfRangeException.h
