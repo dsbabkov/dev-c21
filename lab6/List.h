@@ -19,6 +19,7 @@ public:
     bool removeFirst(const IShape &shape);
 
     void sortBySquare();
+    void sortByDistanceFromCenterToNull();
 
 private:
     void glueHeadToTail();

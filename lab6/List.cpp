@@ -1,5 +1,6 @@
-#include "List.h"
 #include "IShape.h"
+#include "List.h"
+#include "Point.h"
 #include <iostream>
 
 List::List()
@@ -49,6 +50,13 @@ void List::sortBySquare()
     });
 }
 
+void List::sortByDistanceFromCenterToNull()
+{
+    sort([](const IShape &left, const IShape &right){
+        return left.center().vectorLength() < right.center().vectorLength();
+    });
+}
+
 void List::glueHeadToTail()
 {
     head_.next = &tail_;
@@ -70,7 +78,9 @@ void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunc
 std::ostream &operator <<(std::ostream &os, const List &list)
 {
     for (Node *p = list.head_.next; p != &list.tail_; p = p->next){
-        os << *p->shapePtr << " Square:" << p->shapePtr->square() << '\n';
+        os << *p->shapePtr
+           << " Square:" << p->shapePtr->square()
+           << " Center:" << p->shapePtr->center() << '\n';
     }
     return os;
 }
