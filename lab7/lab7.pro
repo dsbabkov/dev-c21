@@ -17,4 +17,5 @@ HEADERS += \
     MyStack.h \
     StackOverflowException.h \
     StackUnderflowException.h \
-    StackOutOfRangeException.h
+    StackOutOfRangeException.h \
+    MyStack2.h
