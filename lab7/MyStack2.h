@@ -12,7 +12,12 @@ public:
     MyStack2()
         : top_{}
         , size_{}
-    {
+    {}
+
+    ~MyStack2(){
+        while(top_){
+            deleteTop();
+        }
     }
 
     size_t size() const{
@@ -31,10 +36,7 @@ public:
 
         T result = std::move(top_->value_);
         --size_;
-
-        Node<T> *currentNode = top_;
-        top_ = top_->prev_;
-        delete currentNode;
+        deleteTop();
 
         return result;
     }
@@ -64,6 +66,13 @@ private:
             result = result->prev_;
         }
         return result;
+    }
+
+    void deleteTop(){
+        Node<T> *currentNode = top_;
+        top_ = top_->prev_;
+        delete currentNode;
+
     }
 
 private:
