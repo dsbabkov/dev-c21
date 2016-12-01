@@ -10,4 +10,5 @@ SOURCES += main.cpp \
 HEADERS += \
     MyString.h \
     Counter.h \
-    Swap.h
+    Swap.h \
+    MyStack.h
