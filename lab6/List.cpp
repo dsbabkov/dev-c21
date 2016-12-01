@@ -48,6 +48,17 @@ void List::glueHeadToTail()
     tail_.prev = &head_;
 }
 
+void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunction)
+{
+    for (Node *p1 = head_.next; p1 != &tail_; p1 = p1->next){
+        for (Node *p2 = p1->next; p2 != &tail_; p2 = p2->next){
+            if (compareFunction(*p2->shapePtr, *p1->shapePtr)){
+                std::swap(p1->shapePtr, p2->shapePtr);
+            }
+        }
+    }
+}
+
 
 std::ostream &operator <<(std::ostream &os, const List &list)
 {
