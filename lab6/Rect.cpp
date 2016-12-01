@@ -90,11 +90,6 @@ void Rect::print(std::ostream &os) const
     os << "Rect(" << topLeft_ << ", " << bottomRight_ << ')';
 }
 
-double Rect::distanceFromCenterToNull() const
-{
-    return center().vectorLength();
-}
-
 bool Rect::operator ==(const Rect &other) const
 {
     return AbstractColoredShape::operator == (other) &&
