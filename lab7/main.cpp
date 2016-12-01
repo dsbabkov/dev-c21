@@ -1,3 +1,4 @@
+#include "MyStack.h"
 #include "MyString.h"
 #include "Swap.h"
 #include <stdexcept>
@@ -49,11 +50,39 @@ int main()
 	//стек из 10 элементов MyString - strStack и поэкспериментируйте с функциями
 	//push() и pop(), operator[]
 
+    MyStack<int, 5> iStack;
+    try {
+        for (int i = 0; ; ++i){
+            iStack.push(i);
+        }
+    } catch (const StackOverflowException &exception){
+        std::cout << exception.what() << "\n";
+    }
 
+    try{
+        while (true){
+            std::cout << iStack.pop() << '\n';
+        }
+    } catch (const StackUnderflowException &exception){
+        std::cout << exception.what() << '\n';
+    }
 
+    MyStack<MyString> strStack;
+    try {
+        while(true){
+            strStack.push("strStackElement");
+        }
+    } catch (const StackOverflowException &exception){
+        std::cout << exception.what() << "\n";
+    }
 
-
-
+    try{
+        while (true){
+            std::cout << strStack.pop() << '\n';
+        }
+    } catch (const StackUnderflowException &exception){
+        std::cout << exception.what() << '\n';
+    }
 
 
 	//Задание 2. Реализуйте шаблон стека - MyStack2 таким образом, чтобы 
