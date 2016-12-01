@@ -1,5 +1,8 @@
 #pragma once
 
+template<class T>
+class MyStack2;
+
 template <class T>
 class Node{
     friend class MyStack2<T>;
