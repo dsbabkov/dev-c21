@@ -8,7 +8,9 @@ SOURCES += main.cpp \
     Counter.cpp \
     StackOverflowException.cpp \
     StackUnderflowException.cpp \
-    StackOutOfRangeException.cpp
+    StackOutOfRangeException.cpp \
+    MyException.cpp \
+    QueueUnderflowException.cpp
 
 HEADERS += \
     MyString.h \
@@ -19,4 +21,7 @@ HEADERS += \
     StackUnderflowException.h \
     StackOutOfRangeException.h \
     MyStack2.h \
-    Node.h
+    Node.h \
+    MyQueue.h \
+    MyException.h \
+    QueueUnderflowException.h

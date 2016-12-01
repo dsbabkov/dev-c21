@@ -1,15 +1,9 @@
 #pragma once
 
-#include <exception>
-#include <string>
+#include "MyException.h"
 
-class StackOutOfRangeException: public std::exception
+class StackOutOfRangeException: public MyException
 {
 public:
     StackOutOfRangeException(const std::string &message);
-
-    virtual const char *what() const noexcept override;
-
-private:
-    std::string message_;
 };
