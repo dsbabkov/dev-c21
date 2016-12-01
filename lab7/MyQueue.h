@@ -11,6 +11,7 @@ public:
         , capasity_{}
         , head_{}
         , tail_{}
+        , empty_{true}
     {}
 
     ~MyQueue(){
@@ -18,9 +19,19 @@ public:
     }
 
     size_t size() const{
-        return tail_ >= head_ ?
-                    tail_ - head_ :
-                    capasity_ - head_ + tail_;
+        size_t distance = tail_ - head_;
+        if (distance){
+            return tail_ >= head_ ?
+                        distance :
+                        capasity_ + distance;
+        }
+        else{
+            return empty_ ? 0 :capasity_;
+        }
+    }
+
+    bool isEmpty() const{
+        return empty_;
     }
 
     void reserve(size_t elementCount){
@@ -28,42 +39,39 @@ public:
             return;
         }
 
-        size_t newTail = size();
         T *newValues = new T[elementCount];
-
         T *p = newValues;
-
-        while (head_ != tail_ && head_ != capasity_){
-            *p++ = values_[head_++];
+        if (head_ >= tail_ && !empty_){
+            p = std::copy(&values_[head_], &values_[capasity_], p);
+            p = std::copy(values_, &values_[tail_], p);
         }
-
-        if (head_ != tail_){
-            for (size_t i = 0; i < tail_; ++i){
-                *p++ = values_[i];
-            }
+        else{
+            p = std::copy(&values_[head_], &values_[tail_], p);
         }
 
         delete[] values_;
         values_ = newValues;
         head_ = 0;
-        tail_ = newTail;
+        tail_ = std::distance(newValues, p);
         capasity_ = elementCount;
     }
 
     void push(const T &value){
-        size_t size = this->size();
-        if (size == capasity_){
+        if (!canPush()){
+            size_t size = capasity_;
             reserve(size + 1);
+            tail_ = size;
         }
 
+        values_[tail_++] = value;
         if (tail_ == capasity_){
             tail_ = 0;
         }
-        values_[tail_++] = value;
+        empty_ = false;
     }
 
     T pop(){
-        if (head_ == tail_){
+        if (empty_){
             throw QueueUnderflowException("Queue underflow");
         }
 
@@ -71,13 +79,20 @@ public:
         if (head_ == capasity_){
             head_ = 0;
         }
+        empty_ = head_ == tail_;
         return std::move(values_[resultIndex]);
     }
 
+private:
+    bool canPush() const{
+        return head_ != tail_ ||
+                (empty_ && capasity_);
+    }
 
 private:
     T *values_;
     size_t capasity_;
     size_t head_;
     size_t tail_;
+    bool empty_;
 };
