@@ -18,7 +18,6 @@ int main()
                     list.append(Circle(Point(1, 2), 3)) :
                     list.append(Rect(1, 2, 3, 5));
     }
-    std::cout << list;
 
     {
         Circle circle({1, 2}, 5);
@@ -27,18 +26,14 @@ int main()
 
     list.prepend(Rect(1, 2, 3, 4));
 
-    Circle circle({1, 2}, 5);
-    IShape *s1 = circle.clone();
-    IShape *s2 = circle.clone();
-
-    std::cout << (*s1 == *s2) << '\n';
-
-    Circle* pc = new Circle;
+    Circle* pc = new Circle{{4, 5}, 8};
     list.prepend(*pc);
     delete pc;
 
-//    std::cout << list.removeFirst(Circle({1, 2}, 5)) << '\n';
-//    std::cout << list;
+    std::cout << list.removeFirst(Circle({1, 2}, 5)) << '\n';
+    list.sortBySquare();
+    list.sortByDistanceFromCenterToNull();
+    std::cout << list;
 
     return 0;
 }
