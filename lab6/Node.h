@@ -15,6 +15,8 @@ public:
     Node(Node *before, const IShape &shape);
     ~Node();
 
+    void swapNeighbours(Node &other);
+
 private:
     Node *next;
     Node *prev;

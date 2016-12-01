@@ -31,3 +31,9 @@ Node::~Node()
     }
 }
 
+void Node::swapNeighbours(Node &other)
+{
+    std::swap(prev, other.prev);
+    std::swap(next, other.next);
+}
+
