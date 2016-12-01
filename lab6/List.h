@@ -18,6 +18,8 @@ public:
     void prepend(const IShape &shape);
     bool removeFirst(const IShape &shape);
 
+    void sortBySquare();
+
 private:
     void glueHeadToTail();
     void sort(std::function<bool(const IShape &left, const IShape &right)> compareFunction);

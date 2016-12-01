@@ -21,10 +21,13 @@ public:
     double left() const;
     double right() const;
 
+    Point center() const;
+
     virtual IShape *clone() const override;
     virtual bool operator ==(const IShape &other) const override;
     virtual double square() const override;
     virtual void print(std::ostream &os) const override;
+    virtual double distanceFromCenterToNull() const override;
 
     bool operator == (const Rect &other) const;
 

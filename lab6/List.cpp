@@ -42,6 +42,13 @@ bool List::removeFirst(const IShape &shape)
     return false;
 }
 
+void List::sortBySquare()
+{
+    sort([](const IShape &left, const IShape &right){
+        return left.square() < right.square();
+    });
+}
+
 void List::glueHeadToTail()
 {
     head_.next = &tail_;
@@ -63,7 +70,7 @@ void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunc
 std::ostream &operator <<(std::ostream &os, const List &list)
 {
     for (Node *p = list.head_.next; p != &list.tail_; p = p->next){
-        os << *p->shapePtr << '\n';
+        os << *p->shapePtr << " Square:" << p->shapePtr->square() << '\n';
     }
     return os;
 }

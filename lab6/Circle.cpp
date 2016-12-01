@@ -48,6 +48,11 @@ void Circle::print(std::ostream &os) const
     os << "Circle(" << center_ << " R =" << radius_ << ')';
 }
 
+double Circle::distanceFromCenterToNull() const
+{
+    return center_.vectorLength();
+}
+
 bool Circle::operator ==(const Circle &other) const
 {
     return AbstractColoredShape::operator == (other) &&

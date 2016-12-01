@@ -61,6 +61,11 @@ double Rect::right() const
     return bottomRight_.x();
 }
 
+Point Rect::center() const
+{
+    return {right() - left(), bottom() - top()};
+}
+
 IShape *Rect::clone() const
 {
     return new Rect(*this);
@@ -83,6 +88,11 @@ double Rect::square() const
 void Rect::print(std::ostream &os) const
 {
     os << "Rect(" << topLeft_ << ", " << bottomRight_ << ')';
+}
+
+double Rect::distanceFromCenterToNull() const
+{
+    return center().vectorLength();
 }
 
 bool Rect::operator ==(const Rect &other) const

@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <cmath>
 #include <iostream>
 
 Point::Point()
@@ -65,6 +66,11 @@ bool Point::operator ==(const Point &other) const
 {
     return x_ == other.x_ &&
             y_ == other.y_;
+}
+
+double Point::vectorLength() const
+{
+    return std::sqrt(pow(x_, 2) + pow(y_, 2));
 }
 
 

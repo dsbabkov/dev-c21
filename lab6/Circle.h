@@ -18,6 +18,7 @@ public:
     virtual double square() const override;
     virtual bool operator ==(const IShape &other) const override;
     virtual void print(std::ostream &os) const override;
+    virtual double distanceFromCenterToNull() const override;
     bool operator ==(const Circle &other) const;
 
 private:

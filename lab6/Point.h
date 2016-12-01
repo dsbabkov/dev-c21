@@ -22,6 +22,8 @@ public:
     bool operator == (const Point &other) const;
     bool operator != (const Point &other) const;
 
+    double vectorLength() const;
+
 private:
     double x_;
     double y_;
