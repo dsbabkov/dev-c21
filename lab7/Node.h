@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 template<class T>
 class MyStack2;
 
@@ -11,6 +13,13 @@ public:
         : prev_{after}
         , value_{value}
     {}
+
+    void printPreviousAndThis() const{
+        if (prev_){
+            prev_->printPreviousAndThis();
+        }
+        std::cout << value_ << "\n";
+    }
 
 private:
     Node *prev_;

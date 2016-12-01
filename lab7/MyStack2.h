@@ -57,6 +57,12 @@ public:
         return node(i)->value_;
     }
 
+    void printElements() const{
+        if (top_){
+            top_->printPreviousAndThis();
+        }
+    }
+
 private:
     Node<T> *node(size_t i) const{
         assert(i < size_);
