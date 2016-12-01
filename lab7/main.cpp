@@ -1,4 +1,6 @@
+#include "MyQueue.h"
 #include "MyStack.h"
+#include "MyStack2.h"
 #include "MyString.h"
 #include "Swap.h"
 #include <stdexcept>
@@ -91,6 +93,13 @@ int main()
 	//пользователь
 
 
+    {
+        MyStack2<int> stack;
+        for (int i = 0; i < 5; ++i){
+            stack.push(i);
+        }
+        stack.printElements();
+    }
 
 
 
@@ -100,6 +109,26 @@ int main()
 	//При использовании массива следует учесть специфику очереди, то есть
 	//когда заполнен "хвост", в "голове" скорее всего уже имеются свободные элементы
 	//=> должен быть организован кольцевой буфер
+
+    {
+        MyQueue<int> q;
+        for (int i = 1; i < 6; ++i){
+            q.push(i);
+        }
+
+        std::cout << q.pop() << '\n';
+        q.push(6);
+        q.push(7);
+
+        try{
+            while(true){
+                std::cout << q.pop() << '\n';
+            }
+        } catch(const QueueUnderflowException &exception) {
+            std::cout << exception.what() << '\n';
+        }
+    }
+
 
 	return 0;
 }
