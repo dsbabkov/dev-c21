@@ -5,9 +5,11 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     Counter.cpp \
-    MyString.cpp
+    MyString.cpp \
+    Point.cpp
 
 HEADERS += \
     VectorUtils.h \
     Counter.h \
-    MyString.h
+    MyString.h \
+    Point.h
