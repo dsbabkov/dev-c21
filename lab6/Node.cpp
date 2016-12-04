@@ -20,6 +20,13 @@ Node::Node(Node *before, const IShape &shape)
     }
 }
 
+Node::Node(Node *prev, Node *next, IShape *shapePtr)
+    : next{next}
+    , prev{prev}
+    , shapePtr{shapePtr}
+{
+}
+
 Node::~Node()
 {
     if (prev){

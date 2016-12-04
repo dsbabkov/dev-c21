@@ -35,6 +35,9 @@ int main()
     list.sortByDistanceFromCenterToNull();
     std::cout << list;
 
+    List copiedList = list;
+    std::cout << list << copiedList;
+
     return 0;
 }
 

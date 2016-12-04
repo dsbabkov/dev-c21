@@ -13,9 +13,11 @@ class Node
 public:
     Node();
     Node(Node *before, const IShape &shape);
+    Node(Node *prev, Node *next, IShape *shapePtr = {});
     ~Node();
 
     void swapNeighbours(Node &other);
+
 
 private:
     Node *next;

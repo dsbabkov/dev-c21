@@ -11,11 +11,55 @@ List::List()
     glueHeadToTail();
 }
 
+List::List(const List &other)
+    : head_{}
+    , tail_{}
+    , size_{other.size_}
+{
+    glueHeadToTail();
+    for (const Node *p = other.head_.next; p != &other.tail_; p = p->next){
+        new Node(&tail_, *p->shapePtr);
+    }
+}
+
+List::List(List &&other)
+    : head_{}
+    , tail_{}
+    , size_{other.size_}
+{
+    if (other.head_.next == &other.tail_){
+        glueHeadToTail();
+        return;
+    }
+
+    moveMiddleNodes(other);
+}
+
 List::~List()
 {
-    while(head_.next != &tail_){
-        delete head_.next;
+    clear();
+}
+
+List &List::operator =(const List &other)
+{
+    clear();
+    size_ = other.size_;
+    for (Node *p = other.head_.next; p != &other.tail_; p = p->next){
+        new Node(&tail_, *p->shapePtr);
     }
+
+    return *this;
+}
+
+List &List::operator = (List &&other)
+{
+    clear();
+    if (other.head_.next == &other.tail_){
+        return *this;
+    }
+    size_ = other.size_;
+    moveMiddleNodes(other);
+    return *this;
 }
 
 void List::append(const IShape &shape)
@@ -43,6 +87,14 @@ bool List::removeFirst(const IShape &shape)
     return false;
 }
 
+void List::clear()
+{
+    while(head_.next != &tail_){
+        delete head_.next;
+    }
+    size_ = 0;
+}
+
 void List::sortBySquare()
 {
     sort([](const IShape &left, const IShape &right){
@@ -63,6 +115,18 @@ void List::glueHeadToTail()
     tail_.prev = &head_;
 }
 
+void List::moveMiddleNodes(List &source)
+{
+    head_.next = source.head_.next;
+    head_.next->prev = &head_;
+
+    tail_.prev = source.tail_.prev;
+    tail_.prev->next = &tail_;
+
+    source.glueHeadToTail();
+    source.size_ = 0;
+}
+
 void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunction)
 {
     for (Node *p1 = head_.next; p1 != &tail_; p1 = p1->next){
@@ -77,6 +141,7 @@ void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunc
 
 std::ostream &operator <<(std::ostream &os, const List &list)
 {
+    os << "List size: " << list.size_ << '\n';
     for (Node *p = list.head_.next; p != &list.tail_; p = p->next){
         os << *p->shapePtr
            << " Square:" << p->shapePtr->square()
