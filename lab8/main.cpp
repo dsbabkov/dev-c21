@@ -232,10 +232,14 @@ int main()
 	//Напишите функцию, которая должна удалять только повторяющиеся последовательности.
 	//Например: было - "qwerrrrty12222r3", стало - "qwety1r3"
 
+        vector<char> vChar;
+        for (char c: "qwerrrrty12222r3"){
+            vChar.push_back(c);
+        }
 
+        removePeriodicity(vChar);
 
-
-	stop
+        cout << vChar << "\n\n";
     }
 
 ///////////////////////////////////////////////////////////////////
