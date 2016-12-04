@@ -249,7 +249,7 @@ int main()
     {
         vector<int> vec = {1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 2, 3, 3, 3, 4};
         removeDuplicates(vec);
-        cout << vec < "\n\n";
+        cout << vec << "\n\n";
     }
 
 
@@ -260,8 +260,10 @@ int main()
 	//копиями элементов любого из созданных ранее векторов, но расположены
 	//были бы в обратном порядке
 
-
-
+    {
+        vector<int> vec = {1, 2, 3};
+        cout << reversedVector(vec) << "\n\n";
+    }
 
 
 

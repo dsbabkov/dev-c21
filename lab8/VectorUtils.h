@@ -81,3 +81,8 @@ void removeDuplicates(std::vector<T> &vec){
         }
     }
 }
+
+template <typename T>
+std::vector<T> reversedVector(const std::vector<T> &source){
+    return {source.crbegin(), source.crend()};
+}
