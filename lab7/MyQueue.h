@@ -14,6 +14,20 @@ public:
         , empty_{true}
     {}
 
+    MyQueue(const MyQueue &other)
+        : values_{new T[other.size()]}
+        , capasity_{other.size()}
+        , head_{}
+        , tail_{}
+        , empty_{other.empty_}
+    {
+        if (empty_){
+            return;
+        }
+
+        other.copyValues(values_);
+    }
+
     ~MyQueue(){
         delete[] values_;
     }
@@ -40,19 +54,12 @@ public:
         }
 
         T *newValues = new T[elementCount];
-        T *p = newValues;
-        if (head_ >= tail_ && !empty_){
-            p = std::copy(&values_[head_], &values_[capasity_], p);
-            p = std::copy(values_, &values_[tail_], p);
-        }
-        else{
-            p = std::copy(&values_[head_], &values_[tail_], p);
-        }
+        T *newValuesEnd = copyValues(newValues);
 
         delete[] values_;
         values_ = newValues;
         head_ = 0;
-        tail_ = std::distance(newValues, p);
+        tail_ = std::distance(newValues, newValuesEnd);
         capasity_ = elementCount;
     }
 
@@ -87,6 +94,17 @@ private:
     bool canPush() const{
         return head_ != tail_ ||
                 (empty_ && capasity_);
+    }
+
+    T *copyValues(T *dest) const{
+        if (head_ >= tail_ && !empty_){
+            dest = std::copy(&values_[head_], &values_[capasity_], dest);
+            dest = std::copy(values_, &values_[tail_], dest);
+        }
+        else{
+            dest = std::copy(&values_[head_], &values_[tail_], dest);
+        }
+        return dest;
     }
 
 private:
