@@ -129,10 +129,20 @@ int main()
         q.push(6);
         q.push(7);
 
-        MyQueue<int> qCopy = q;
+        MyQueue<int> qMove = std::move(q);
+        std::cout << "Original\n";
         try{
             while(true){
-                std::cout << qCopy.pop() << '\n';
+                std::cout << q.pop() << '\n';
+            }
+        } catch(const QueueUnderflowException &exception) {
+            std::cout << exception.what() << '\n';
+        }
+
+        std::cout << "Move\n";
+        try{
+            while(true){
+                std::cout << qMove.pop() << '\n';
             }
         } catch(const QueueUnderflowException &exception) {
             std::cout << exception.what() << '\n';

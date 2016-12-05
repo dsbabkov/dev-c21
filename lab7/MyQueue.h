@@ -28,6 +28,20 @@ public:
         other.copyValues(values_);
     }
 
+    MyQueue(MyQueue &&other)
+        : values_{other.values_}
+        , capasity_{other.capasity_}
+        , head_{other.head_}
+        , tail_{other.tail_}
+        , empty_{other.empty_}
+    {
+        other.values_ = {};
+        other.capasity_ = 0;
+        other.head_ = other.tail_ = 0;
+        other.empty_ = true;
+    }
+
+
     ~MyQueue(){
         delete[] values_;
     }
