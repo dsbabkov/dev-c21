@@ -42,6 +42,10 @@ List::~List()
 
 List &List::operator =(const List &other)
 {
+    if (this == &other){
+        return *this;
+    }
+
     clear();
     size_ = other.size_;
     for (Node *p = other.head_.next; p != &other.tail_; p = p->next){
@@ -53,6 +57,10 @@ List &List::operator =(const List &other)
 
 List &List::operator = (List &&other)
 {
+    if (this == &other){
+        return *this;
+    }
+
     clear();
     if (other.head_.next == &other.tail_){
         return *this;
