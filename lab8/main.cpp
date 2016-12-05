@@ -6,6 +6,7 @@
 #include "MyString.h"
 #include "Point.h"
 #include <iostream>
+#include <list>
 #include <vector>
 
 
@@ -273,7 +274,14 @@ int main()
 	//Создайте пустой список из элементов Point - ptList1 и наполните
 	//его значениями с помощью методов push_back(),
 	//push_front, insert()
-	
+    {
+        list<Point> ptList1;
+        ptList1.push_back({1, 2});
+        ptList1.push_back({2, -9});
+        ptList1.push_back({4, 9});
+        ptList1.push_back({5, 2});
+        ptList1.push_back({15, 32});
+    }
 
 	//Напишите шаблон функции, которая будет выводить элементы
 	//ЛЮБОГО КОНТЕЙНЕРА на печать. Проверьте работу шаблона на контейнерах
