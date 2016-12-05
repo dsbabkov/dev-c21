@@ -35,12 +35,48 @@ public:
         , tail_{other.tail_}
         , empty_{other.empty_}
     {
-        other.values_ = {};
-        other.capasity_ = 0;
-        other.head_ = other.tail_ = 0;
-        other.empty_ = true;
+        other.clearAfterMove();
     }
 
+    MyQueue &operator = (const MyQueue &other){
+        if (this == &other){
+            return *this;
+        }
+
+        size_t size = other.size();
+        if (capasity_ < size){
+            delete[] values_;
+            values_ = new T[size];
+            capasity_ = size;
+            tail_ = 0;
+        }
+        else{
+            tail_ = capasity_ == size ?
+                        0 :
+                        size;
+        }
+
+        other.copyValues(values_);
+        head_ = 0;
+        empty_ = other.empty_;
+        return *this;
+    }
+
+    MyQueue &operator = (MyQueue &&other){
+        if (this == &other){
+            return *this;
+        }
+
+        delete[] values_;
+        values_ = other.values_;
+        capasity_ = other.capasity_;
+        head_ = other.head_;
+        tail_ = other.tail_;
+        empty_ = other.empty_;
+
+        other.clearAfterMove();
+        return *this;
+    }
 
     ~MyQueue(){
         delete[] values_;
@@ -119,6 +155,13 @@ private:
             dest = std::copy(&values_[head_], &values_[tail_], dest);
         }
         return dest;
+    }
+
+    void clearAfterMove(){
+        values_ = {};
+        capasity_ = 0;
+        head_ = tail_ = 0;
+        empty_ = true;
     }
 
 private:

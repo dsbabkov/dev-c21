@@ -130,6 +130,7 @@ int main()
         q.push(7);
 
         MyQueue<int> qMove = std::move(q);
+        q = std::move(qMove);
         std::cout << "Original\n";
         try{
             while(true){
