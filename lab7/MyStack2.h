@@ -14,10 +14,64 @@ public:
         , size_{}
     {}
 
+    MyStack2(const MyStack2 &other)
+        : top_{}
+        , size_(other.size_)
+    {
+        if (!size_){
+            return;
+        }
+        top_ = new Node<T>({}, other.top_->value_);
+        Node<T> *tail = top_;
+        for (Node<T> *p = other.top_->prev_; p; p = p->prev_){
+            Node<T> *currentNode = tail;
+            tail = new Node<T>({}, p->value_);
+            currentNode->prev_ = tail;
+        }
+    }
+
+    MyStack2(MyStack2 &&other)
+        : top_{other.top_}
+        , size_{other.size_}
+    {
+        other.top_ = {};
+        other.size_ = 0;
+    }
+
+    MyStack2 &operator = (const MyStack2 &other){
+        if (this == &other){
+            return *this;
+        }
+
+        clear();
+        if (!other.size_){
+            return *this;
+        }
+
+        MyStack2 tmp = other;
+        std::swap(*this, tmp);
+        return *this;
+    }
+
+    MyStack2 &operator = (MyStack2 &&other){
+        if (this == &other){
+            return *this;
+        }
+        clear();
+        std::swap(top_, other.top_);
+        std::swap(size_, other.size_);
+        return *this;
+    }
+
     ~MyStack2(){
+        clear();
+    }
+
+    void clear(){
         while(top_){
             deleteTop();
         }
+        size_ = 0;
     }
 
     size_t size() const{

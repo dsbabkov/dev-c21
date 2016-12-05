@@ -98,7 +98,16 @@ int main()
         for (int i = 0; i < 5; ++i){
             stack.push(i);
         }
+        MyStack2<int> copy = stack;
+        std::cout <<"Copy\n";
+        copy.printElements();
+        MyStack2<int> move;
+        move = std::move(stack);
+        std::cout <<"Move\n";
+        move.printElements();
+        std::cout <<"Original\n";
         stack.printElements();
+
     }
 
 
