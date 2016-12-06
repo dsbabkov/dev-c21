@@ -26,6 +26,13 @@ void Circle::setRadius(double radius)
     radius_ = radius;
 }
 
+IShape &Circle::operator =(const IShape &other)
+{
+    IShape::operator =(other);
+    Circle::operator =(static_cast<const Circle &>(other));
+    return *this;
+}
+
 IShape *Circle::clone() const
 {
     return new Circle(*this);

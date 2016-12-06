@@ -43,13 +43,30 @@ public:
             return *this;
         }
 
-        clear();
-        if (!other.size_){
-            return *this;
+        Node<T> *pOther = other.top_;
+        Node<T> *pThis = top_;
+        Node<T> *pThisEnd = top_;
+        while(pThis && pOther){
+            pThis->value_ = pOther->value_;
+            pThisEnd = pThis;
+            pThis = pThis->prev_;
+            pOther = pOther->prev_;
         }
 
-        MyStack2 tmp = other;
-        std::swap(*this, tmp);
+        while (pThis){
+            Node<T> *p = pThis;
+            pThis = pThis->prev_;
+            delete p;
+        }
+
+        while (pOther){
+            pThisEnd->prev_ = new Node<T>({}, pOther->value_);
+            pThisEnd = pThisEnd->prev_;
+            pOther = pOther->prev_;
+        }
+
+        size_ = other.size_;
+
         return *this;
     }
 
@@ -95,7 +112,7 @@ public:
         return result;
     }
 
-    T operator[] (size_t i) const{
+    const T &operator[] (size_t i) const{
         if (i >= size_){
             throw StackOutOfRangeException("Stack index out of range");
         }

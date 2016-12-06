@@ -12,6 +12,7 @@ public:
 
     virtual IShape *clone() const = 0;
     virtual double square() const = 0;
+    virtual IShape &operator = (const IShape &other) = 0;
     virtual bool operator == (const IShape &other) const = 0;
     bool operator != (const IShape &other) const;
 

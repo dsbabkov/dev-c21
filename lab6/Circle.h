@@ -14,6 +14,8 @@ public:
     double radius() const;
     void setRadius(double radius);
 
+    virtual IShape &operator =(const IShape &other) override;
+
     virtual IShape *clone() const override;
     virtual double square() const override;
     virtual bool operator ==(const IShape &other) const override;
@@ -23,4 +25,5 @@ public:
 private:
     Point center_;
     double radius_;
+
 };

@@ -12,4 +12,5 @@ HEADERS += \
     VectorUtils.h \
     Counter.h \
     MyString.h \
-    Point.h
+    Point.h \
+    ContainerUtils.h

@@ -16,6 +16,8 @@ public:
     Node(Node *prev, Node *next, IShape *shapePtr = {});
     ~Node();
 
+    Node &operator = (const Node &other);
+
     void swapNeighbours(Node &other);
 
 

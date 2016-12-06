@@ -10,6 +10,8 @@ public:
     Rect(const Point &topLeft, const Point &bottomRight);
     Rect(double left, double right, double top, double bottom);
 
+    virtual IShape &operator =(const IShape &other) override;
+
     Point topLeft() const;
     void setTopLeft(const Point &topLeft);
 
@@ -33,4 +35,7 @@ public:
 private:
     Point topLeft_;
     Point bottomRight_;
+
+    // IShape interface
+public:
 };

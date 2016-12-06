@@ -2,6 +2,7 @@
 	//Контейнеры стандартной библиотеки - vector
 	//Итераторы
 
+#include "ContainerUtils.h"
 #include "VectorUtils.h"
 #include "MyString.h"
 #include "Point.h"
@@ -127,7 +128,7 @@ int main()
 		v.resize(n/2);
 		if(v.capacity() == n) //true?
 //            false;
-            ;
+        {}
     }
 
 
@@ -281,14 +282,32 @@ int main()
         ptList1.push_back({4, 9});
         ptList1.push_back({5, 2});
         ptList1.push_back({15, 32});
-    }
+
+        vector<Point> ptVector1;
+        ptVector1.push_back({1, 2});
+        ptVector1.push_back({2, -9});
+        ptVector1.push_back({4, 9});
+        ptVector1.push_back({5, 2});
+        ptVector1.push_back({15, 32});
 
 	//Напишите шаблон функции, которая будет выводить элементы
 	//ЛЮБОГО КОНТЕЙНЕРА на печать. Проверьте работу шаблона на контейнерах
 	//vector и list. Подсказка - хотелось бы увидеть тип контейнера.
 
+        printContainer(ptList1);
+        std::cout << '\n';
+        printContainer(ptVector1);
+        std::cout << '\n';
+
 
 	//Сделайте любой из списков "реверсивным" - reverse()
+        reversedContainer(ptList1);
+        reversedContainer(ptVector1);
+        printContainer(ptList1);
+        std::cout << '\n';
+        printContainer(ptVector1);
+        std::cout << '\n';
+    }
 
 
 	//Создайте список ptList2 из элементов Point таким образом, чтобы он стал 

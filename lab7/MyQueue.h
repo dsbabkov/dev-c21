@@ -104,7 +104,7 @@ public:
         }
 
         T *newValues = new T[elementCount];
-        T *newValuesEnd = copyValues(newValues);
+        T *newValuesEnd = moveValues(newValues);
 
         delete[] values_;
         values_ = newValues;
@@ -147,12 +147,15 @@ private:
     }
 
     T *copyValues(T *dest) const{
-        if (head_ >= tail_ && !empty_){
-            dest = std::copy(&values_[head_], &values_[capasity_], dest);
-            dest = std::copy(values_, &values_[tail_], dest);
+        for (size_t i = 0, end = size(); i < end; ++i){
+            dest[i] = values_[(head_ + i) % capasity_];
         }
-        else{
-            dest = std::copy(&values_[head_], &values_[tail_], dest);
+        return dest;
+    }
+
+    T *moveValues(T *dest) const{
+        for (size_t i = 0, end = size(); i < end; ++i){
+            dest[i] = std::move(values_[(head_ + i) % capasity_]);
         }
         return dest;
     }

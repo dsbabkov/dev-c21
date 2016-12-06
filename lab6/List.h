@@ -32,6 +32,10 @@ private:
     void glueHeadToTail();
     void moveMiddleNodes(List &source);
     void sort(std::function<bool(const IShape &left, const IShape &right)> compareFunction);
+    void sort(bool (*compare)(const IShape &left, const IShape &right));
+
+    static bool compareSquare(const IShape &left, const IShape &right);
+    static bool compareDistanceFromCenterToNull(const IShape &left, const IShape &right);
 
 private:
     Node head_;

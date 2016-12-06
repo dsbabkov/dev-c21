@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     Node.cpp \
     List.cpp \
     IShape.cpp \
-    AbstractColoredShape.cpp
+    AbstractColoredShape.cpp \
+    BadShapeType.cpp
 
 HEADERS += \
     Point.h \
@@ -23,5 +24,6 @@ HEADERS += \
     Node.h \
     List.h \
     IShape.h \
-    AbstractColoredShape.h
+    AbstractColoredShape.h \
+    BadShapeType.h
 

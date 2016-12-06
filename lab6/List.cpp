@@ -46,12 +46,23 @@ List &List::operator =(const List &other)
         return *this;
     }
 
-    clear();
-    size_ = other.size_;
-    for (Node *p = other.head_.next; p != &other.tail_; p = p->next){
-        new Node(&tail_, *p->shapePtr);
+    Node *pOther = other.head_.next;
+    for (Node *pThis = head_.next; pOther != &other.tail_ && pThis != &tail_; pOther = pOther->next, pThis = pThis->next){
+        *pThis = *pOther;
     }
 
+    if (size_ > other.size_){
+        for (size_t i = 0, end = size_ - other.size_; i < end; ++i){
+            delete tail_.prev;
+        }
+    }
+    else {
+        while (pOther != &other.tail_){
+            new Node(&tail_, *pOther->shapePtr);
+        }
+    }
+
+    size_ = other.size_;
     return *this;
 }
 
@@ -105,16 +116,20 @@ void List::clear()
 
 void List::sortBySquare()
 {
-    sort([](const IShape &left, const IShape &right){
-        return left.square() < right.square();
-    });
+    sort(&List::compareSquare);
+    return;
+//    sort([](const IShape &left, const IShape &right){
+//        return left.square() < right.square();
+//    });
 }
 
 void List::sortByDistanceFromCenterToNull()
 {
-    sort([](const IShape &left, const IShape &right){
-        return left.center().vectorLength() < right.center().vectorLength();
-    });
+    sort(&List::compareDistanceFromCenterToNull);
+    return;
+//    sort([](const IShape &left, const IShape &right){
+//        return left.center().vectorLength() < right.center().vectorLength();
+//    });
 }
 
 void List::glueHeadToTail()
@@ -144,6 +159,23 @@ void List::sort(std::function<bool (const IShape &, const IShape &)> compareFunc
             }
         }
     }
+}
+
+void List::sort(bool (*compare)(const IShape &, const IShape &))
+{
+    sort([&](const IShape &left, const IShape &right){
+        return compare(left, right);
+    });
+}
+
+bool List::compareSquare(const IShape &left, const IShape &right)
+{
+    return left.square() < right.square();
+}
+
+bool List::compareDistanceFromCenterToNull(const IShape &left, const IShape &right)
+{
+    return left.center().vectorLength() < right.center().vectorLength();
 }
 
 

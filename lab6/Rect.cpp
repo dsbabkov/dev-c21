@@ -21,6 +21,13 @@ Rect::Rect(double left, double right, double top, double bottom)
 {
 }
 
+IShape &Rect::operator =(const IShape &other)
+{
+    IShape::operator =(other);
+    Rect::operator =(static_cast<const Rect &>(other));
+    return *this;
+}
+
 Point Rect::topLeft() const
 {
     return topLeft_;

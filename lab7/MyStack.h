@@ -24,16 +24,22 @@ public:
 
         values_[size_++] = value;
     }
+    void push( T &&value){
+        if (size_ == capasity){
+            throw StackOverflowException("Stack overflow");
+        }
 
+        values_[size_++] = std::move(value);
+    }
     T pop(){
         if (!size_){
             throw StackUnderflowException("Stack underflow");
         }
 
-        return values_[--size_];
+        return std::move(values_[--size_]);
     }
 
-    T operator[] (size_t i) const{
+    const T &operator[] (size_t i) const{
         if (i >= size_){
             throw StackOutOfRangeException("Stack index out of range");
         }
