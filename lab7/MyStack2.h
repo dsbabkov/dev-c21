@@ -128,10 +128,31 @@ public:
         return node(i)->value_;
     }
 
-    void printElements() const{
-        if (top_){
-            top_->printPreviousAndThis();
+    void reverse(){
+        if (!size_){
+            return;
         }
+        Node<T> *bottom = top_;
+        while (bottom->prev_){
+            Node<T> *newTop = bottom->prev_;
+            bottom->prev_ = newTop->prev_;
+            newTop->prev_ = top_;
+            top_ = newTop;
+        }
+    }
+
+    void printElements() const{
+        MyStack2 copy = *this;
+        copy.reverse();
+        std::cout << '{';
+        for (Node<T> *p = copy.top_; p; p = p->prev_){
+            std::cout << p->value_ << ' ';
+        }
+        if (size_){
+            std::cout << '\b';
+        }
+        std::cout << "}\n";
+        copy.reverse();
     }
 
 private:

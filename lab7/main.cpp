@@ -99,6 +99,7 @@ int main()
             stack.push(i);
         }
         MyStack2<int> copy = stack;
+        copy.reverse();
         std::cout <<"Copy\n";
         copy.printElements();
         MyStack2<int> move;
