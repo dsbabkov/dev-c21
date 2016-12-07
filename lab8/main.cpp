@@ -322,7 +322,6 @@ int main()
 	//работала сортировка
         ptList1.sort();
         ptList2.sort();
-    }
 
 
 	
@@ -333,19 +332,37 @@ int main()
 	//Объедините отсортированные списки - merge(). Посмотрите: что
 	//при этом происходит с каждым списком.
 
-	
+        printContainer(ptList1);
+        std::cout << '\n';
+        printContainer(ptList2);
+        std::cout << '\n';
+        ptList1.merge(ptList2);
+        printContainer(ptList1);
+        std::cout << '\n';
+
 	stop
 
 	//Исключение элемента из списка - remove()
 	//Исключите из списка элемент с определенным значением.
 	//Подумайте: что должно быть перегружено в классе Point?
 	
+        ptList1.remove({1, 2});
+        printContainer(ptList1);
+        std::cout << '\n';
 
 	//Исключение элемента из списка, удовлетворяющего заданному условию:
 	//любая из координат отрицательна - remove_if(). 
 
+        ptList1.remove_if([](const Point &point){return point.x() < 0 || point.y() < 0;});
+        printContainer(ptList1);
+        std::cout << '\n';
+
 
 	//Исключение из списка подряд расположенных дублей - unique(). 
+        ptList1.unique();
+        printContainer(ptList1);
+        std::cout << '\n';
+    }
 
 	stop
 

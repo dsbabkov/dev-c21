@@ -5,7 +5,7 @@
 
 template <typename T>
 void printContainer(const T &container){
-    std::cout << typeid(container).name() << '{';
+    std::cout << typeid(container).name() << "\n{";
     for (auto it = container.cbegin(), end = container.cend(); it != end; ++it){
         std::cout << *it << ", ";
     }
