@@ -307,19 +307,22 @@ int main()
         std::cout << '\n';
         printContainer(ptVector1);
         std::cout << '\n';
-    }
 
 
 	//Создайте список ptList2 из элементов Point таким образом, чтобы он стал 
 	//копией вектора элементов типа Point, но значения элементов списка располагались
 	//бы в обратном порядке 
 
+        list<Point> ptList2(ptVector1.crbegin(), ptVector1.crend());
 
 
 	//Отсортируйте списки  ptList1 и ptList2 - методом класса list - sort()
 	//по возрастанию.
 	//Подумайте: что должно быть перегружено в классе Point для того, чтобы
 	//работала сортировка
+        ptList1.sort();
+        ptList2.sort();
+    }
 
 
 	

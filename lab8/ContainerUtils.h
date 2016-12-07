@@ -1,10 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <typeinfo>
 
 template <typename T>
 void printContainer(const T &container){
-    std::cout << '{';
+    std::cout << typeid(container).name() << '{';
     for (auto it = container.cbegin(), end = container.cend(); it != end; ++it){
         std::cout << *it << ", ";
     }
