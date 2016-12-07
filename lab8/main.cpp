@@ -6,6 +6,7 @@
 #include "VectorUtils.h"
 #include "MyString.h"
 #include "Point.h"
+#include <deque>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -362,7 +363,6 @@ int main()
         ptList1.unique();
         printContainer(ptList1);
         std::cout << '\n';
-    }
 
 	stop
 
@@ -373,16 +373,38 @@ int main()
 	//assign заполните deque копиями элементов вектора. С помощью
 	//разработанного Вами в предыдущем задании универсального шаблона
 	//выведите значения элементов на печать
-
+        std::deque<Point> deq;
+        deq.assign(ptVector1.cbegin(), ptVector1.cend());
+        printContainer(deq);
+        std::cout << '\n';
 
 
 	//Создайте deque с элементами типа MyString. Заполните его значениями
 	//с помощью push_back(), push_front(), insert()
 	//С помощью erase удалите из deque все элементы, в которых строчки
 	//начинаются с 'A' или 'a'
+        std::deque<MyString> strDeq;
+        strDeq.push_back("Are");
+        strDeq.push_back("Arre");
+        strDeq.push_back("arqwere");
+        strDeq.push_back("Arffde");
+        strDeq.push_back("Aertvre");
+        strDeq.insert(strDeq.begin() + 2, 2, "Bgg");
+
+        printContainer(strDeq);
+        std::cout << '\n';
+
+        for (size_t end = strDeq.size(), i = end - 1; i < end; --i){
+            if ((*strDeq[i].cStr() | 0x20) == 'a'){
+                strDeq.erase(strDeq.begin() + i);
+            }
+        }
+
+        printContainer(strDeq);
+        std::cout << '\n';
 
 
 
-
+    }
 	return 0;
 }
