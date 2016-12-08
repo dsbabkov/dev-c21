@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <clocale>
+#include "AdapterUtils.h"
 
 #include <iostream>
 
@@ -34,10 +35,14 @@ int main()
 	//а) элементы стека стали копиями элементов вектора
 	//б) при выводе значений как вектора, так и стека порядок значений был одинаковым 
 
-
-
-	
-	
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+    std::stack<int, std::vector<int>> stack({vec.crbegin(), vec.crend()});
+    const int &(std::stack<int, std::vector<int>>::*stackTopMethod)() const = &std::stack<int, std::vector<int>>::top;
+    std::queue<int> queue({vec.cbegin(), vec.cend()});
+    std::priority_queue<int> priority_queue({vec.cbegin(), vec.cend()});
+    printAdapter(stack, stackTopMethod);
+    printAdapter(queue, &std::queue<int>::front);
+    printAdapter(priority_queue, &std::priority_queue<int>::top);
 
 
 	////////////////////////////////////////////////////////////////////////////////////
