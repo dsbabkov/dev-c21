@@ -11,6 +11,7 @@
 #include <string>
 #include <clocale>
 #include "AdapterUtils.h"
+#include "Point.h"
 
 #include <iostream>
 
@@ -52,6 +53,19 @@ int main()
 	//при этом явно задайте базовый контейнер.
 	//Измените значения первого и последнего элементов посредством front() и back()
 	//Подумайте, что требуется сделать при уничтожении такой очереди?
+    {
+        std::queue<Point *, std::deque<Point *>> pointPointersQueue{{
+            new Point(), new Point(), new Point(), new Point(), new Point()
+        }};
+
+        pointPointersQueue.front()->setX(1);
+        pointPointersQueue.back()->setY(1);
+
+        while (!pointPointersQueue.empty()){
+            delete pointPointersQueue.front();
+            pointPointersQueue.pop();
+        }
+    }
 	
 
 
