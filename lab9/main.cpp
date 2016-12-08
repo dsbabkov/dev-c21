@@ -12,6 +12,7 @@
 #include <clocale>
 #include "AdapterUtils.h"
 #include "Point.h"
+#include <cstring>
 
 #include <iostream>
 
@@ -80,6 +81,19 @@ int main()
 	//б) проинициализируйте очередь при создании с помощью вспомогательного массива с элементами const char*
 	//в) проверьте "упорядоченность" значений (с помощью pop() ) - если они оказываются не упорядоченными, подумайте:
 	//		что сравнивается при вставке?
+    {
+        struct Compare{
+            bool operator () (const char *l, const char *r){
+                return strcmp(l, r) > 0;
+            }
+        };
+
+        std::vector<const char *> ivec = {"b" , "a", "A", "v"};
+        std::priority_queue<const char *, std::vector<const char *>, Compare> priorChar(ivec.cbegin(), ivec.cend());
+
+        printAdapter(priorChar,
+                     &std::priority_queue<const char *, std::vector<const char *>, Compare>::top);
+    }
 
 
 	
