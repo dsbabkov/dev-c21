@@ -68,6 +68,11 @@ bool Point::operator ==(const Point &other) const
             y_ == other.y_;
 }
 
+bool Point::operator < (const Point &other) const{
+    return x_ < other.x_ ||
+            y_ < other.y_;
+}
+
 double Point::vectorLength() const
 {
     return std::sqrt(pow(x_, 2) + pow(y_, 2));
