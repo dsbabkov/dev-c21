@@ -8,4 +8,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     AdapterUtils.h \
-    Point.h
+    Point.h \
+    AssociativeUtils.h

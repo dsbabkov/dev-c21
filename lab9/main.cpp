@@ -11,6 +11,7 @@
 #include <string>
 #include <clocale>
 #include "AdapterUtils.h"
+#include "AssociativeUtils.h"
 #include "Point.h"
 #include <cstring>
 
@@ -81,18 +82,18 @@ int main()
 	//б) проинициализируйте очередь при создании с помощью вспомогательного массива с элементами const char*
 	//в) проверьте "упорядоченность" значений (с помощью pop() ) - если они оказываются не упорядоченными, подумайте:
 	//		что сравнивается при вставке?
-    {
-        struct Compare{
-            bool operator () (const char *l, const char *r){
-                return strcmp(l, r) > 0;
-            }
-        };
+    struct CompareStr{
+        bool operator () (const char *l, const char *r){
+            return strcmp(l, r) < 0;
+        }
+    };
 
+    {
         std::vector<const char *> ivec = {"b" , "a", "A", "v"};
-        std::priority_queue<const char *, std::vector<const char *>, Compare> priorChar(ivec.cbegin(), ivec.cend());
+        std::priority_queue<const char *, std::vector<const char *>, CompareStr> priorChar(ivec.cbegin(), ivec.cend());
 
         printAdapter(priorChar,
-                     &std::priority_queue<const char *, std::vector<const char *>, Compare>::top);
+                     &std::priority_queue<const char *, std::vector<const char *>, CompareStr>::top);
     }
 
 
@@ -115,6 +116,12 @@ int main()
 	//	контейнера, например, элементов массива	(что происходит, если в массиве имеются дубли?)
 
     std::set<Point> pointSet{{1,2}, {3, 4}, {5, 6}};
+    std::set<Point> copyPointSet(pointSet);
+    std::vector<Point> vecPoint(pointSet.cbegin(), pointSet.cend());
+    vecPoint.push_back({1,1});
+    copyPointSet.insert(vecPoint.cbegin(), vecPoint.cend());
+
+
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -126,7 +133,16 @@ int main()
 
 	//г) замените один из КЛЮЧЕЙ на новый (была "Иванова", вышла замуж => стала "Петрова")
 
-	stop
+    std::map<const char *, int> salaryMap;
+    salaryMap["Pupkin"] = 100;
+    salaryMap.insert({"Petrischev", 200});
+
+    printAssociative(salaryMap);
+    auto mapIt = salaryMap.find("Petrischev");
+    if (mapIt != salaryMap.end()){
+        salaryMap.insert({"Releeva", mapIt->second});
+        salaryMap.erase(mapIt);
+    }
 	
 
 	
@@ -135,7 +151,13 @@ int main()
 		//Создайте (и распечатайте для проверки) map<string, int>, который будет
 		//содержать упорядоченные по алфавиту строки и
 		//количество повторений каждой строки в векторе
-	
+
+    std::vector<std::string> strVec {"pen", "pineapple", "apple", "pen"};
+    std::map<std::string, int> strMap;
+    for (const std::string &string: strVec){
+        strMap[string];
+    }
+    printAssociative(strMap);
 
 
 
@@ -146,13 +168,40 @@ int main()
 		//создайте map, в котором каждой букве будет соответствовать совокупность 
 		//лексиграфически упорядоченных слов, начинающихся с этой буквы.
 		//Подсказка: не стоит хранить дубли одной и той же строки
-	
+    const char* words[] = {"Abba", "Alfa", "Beta", "Beauty"};
+    std::map<char, std::set<const char *, CompareStr> > myMap;
+    for (const char *word: words){
+        myMap[word[0]].insert(word);
+    }
 		//'A' -  "Abba" "Alfa"
 		//'B' -  "Beauty" "Beta"  ...
 		//...
 		
 
 		//ж)
+    struct Student{
+        std::string lastName;
+        int id;
+
+        bool operator <(const Student &other) const{
+            int compareResult = strcmp(lastName.c_str(), other.lastName.c_str());
+
+            return compareResult == 0 ?
+                        id < other.id :
+                        compareResult < 0;
+        }
+    };
+
+    struct StudentGroup{
+        int id;
+        std::set<Student> students;
+
+        bool operator < (const StudentGroup &other) const{
+            return id < other.id;
+        }
+    };
+    std::set<StudentGroup> studentGroups;
+
 		//создайте структуру данных, которая будет хранить информацию о студенческих группах.
 		//Для каждой группы должны хранится фамилии студентов (по алфавиту). При этом 
 		//фамилии могут дублироваться
@@ -172,8 +221,17 @@ int main()
 	//в) Выведите все содержимое словаря на экран
 	//г) Выведите на экран только варианты "переводов" для заданного ключа. Подсказка: для нахождения диапазона
 	//		итераторов можно использовать методы lower_bound() и upper_bound()
+    std::multimap<std::string, std::string> englishRussian = {
+        {"strange", {"chuzoi", "strannii"}}
+    };
 
-
+    for (const auto &mapPair: englishRussian){
+        std::cout << mapPair.first << ": ";
+        for (const auto &string: englishRussian.equal_range()){
+            std::cout << string << ' ';
+        }
+        std::cout << '\n';
+    }
 
 
    
