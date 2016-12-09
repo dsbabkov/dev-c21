@@ -218,22 +218,32 @@ int main()
 	//		несколько русских значений - pair<string,string>, например: strange: чужой, странный...
 	//б) Заполните словарь парами с помощью метода insert или проинициализируйте с помощью 
 	//		вспомогательного массива пара (пары можно конструировать или создавать с помощью шаблона make_pair)
-	//в) Выведите все содержимое словаря на экран
-	//г) Выведите на экран только варианты "переводов" для заданного ключа. Подсказка: для нахождения диапазона
-	//		итераторов можно использовать методы lower_bound() и upper_bound()
     std::multimap<std::string, std::string> englishRussian = {
-        {"strange", {"chuzoi", "strannii"}}
+        {"cat", "kot"},
+        {"strange", "chuzoi"},
+        {"strange", "strannii"},
+        {"cast", "brosok"},
+        {"cast", "lityo"},
+        {"cast", "otlivka"},
+        {"dog", "pes"}
     };
 
+    //в) Выведите все содержимое словаря на экран
     for (const auto &mapPair: englishRussian){
-        std::cout << mapPair.first << ": ";
-        for (const auto &string: englishRussian.equal_range()){
-            std::cout << string << ' ';
-        }
-        std::cout << '\n';
+        std::cout << mapPair.first << ": "
+                  << mapPair.second << '\n';
     }
 
 
+    //г) Выведите на экран только варианты "переводов" для заданного ключа. Подсказка: для нахождения диапазона
+    //		итераторов можно использовать методы lower_bound() и upper_bound()
+
+    const std::string key = "cast";
+    const auto &range = englishRussian.equal_range(key);
+    std::cout << key << ":\n";
+    for (auto it = range.first; it != range.second; ++it){
+        std::cout << "\t" << it->second << '\n';
+    }
    
 
   stop
