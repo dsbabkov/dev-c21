@@ -2,12 +2,26 @@
 
 #include <iostream>
 #include <typeinfo>
+#include <vector>
+#include "Point.h"
 
 template <typename T>
 void printContainer(const T &container){
     std::cout << typeid(container).name() << "\n{";
     for (auto it = container.cbegin(), end = container.cend(); it != end; ++it){
         std::cout << *it << ", ";
+    }
+    if (!container.empty()){
+        std::cout << "\b\b";
+    }
+    std::cout << '}';
+}
+
+template <>
+void printContainer(const std::vector<Point *> &container){
+    std::cout << typeid(container).name() << "\n{";
+    for (auto it = container.cbegin(), end = container.cend(); it != end; ++it){
+        std::cout << **it << ", ";
     }
     if (!container.empty()){
         std::cout << "\b\b";

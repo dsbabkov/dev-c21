@@ -9,6 +9,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
+#include "ContainerUtils.h"
 
 #include "Point.h"
 
@@ -65,7 +66,7 @@ int main()
 	//С помощью алгоритма for_each в любой последовательности с элементами любого типа
 	//распечатайте значения элементов
 	//Подсказка : неплохо вызываемую функцию определить как шаблон
-
+    printWithForEach(pointVec);
 
 
 	stop
@@ -74,17 +75,27 @@ int main()
 	//измените "координаты" на указанное значение (такой предикат тоже стоит реализовать 
 	//как шаблон) и выведите результат с помощью предыдущего предиката
 
+    for_each(pointVec.begin(), pointVec.end(), [](Point &point){point.setX(point.x() + 1);});
+    printWithForEach(pointVec);
+
 
 
 
 	//С помощью алгоритма find() найдите в любой последовательности элементов Point
 	//все итераторы на элемент Point с указанным значением.
-
+    Point myPoint(4, 4);
+    auto it = find(pointVec.cbegin(), pointVec.cend(), myPoint);
+    while (it != pointVec.cend()){
+        cout << it - pointVec.cbegin() << " ";
+        it = find(it + 1, pointVec.cend(), myPoint);
+    }
+    cout << '\n';
 
 
 	
 	
 	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Point. 
+    sort(pointVec.begin(), pointVec.end());
 	////По умолчанию алгоритм сортирует последовательность по возрастанию.
 	//Что должно быть определено в классе Point?
 	// Замечание: обобщенный алгоритм sort не работает со списком, так как
@@ -98,15 +109,14 @@ int main()
 	//итератор на элемент Point, удовлетворяющий условию: координаты x и y лежат в промежутке
 	//[-n, +m].
 
+    const double n = 4;
+    const double m = 5;
+    find_if(pointVec.cbegin(), pointVec.cend(), [=](const Point &point){return point.x() < n && point.y() > m;});
 
 
 	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Rect,
 	//располагая прямоугольники по удалению центра от начала координат.
-	
-
-
-
-
+    sort(pointVec.begin(), pointVec.end(), [](const Point &left, const Point &right){return left.vectorLength() < right.vectorLength();});
 
 
 	{//transform
@@ -114,33 +124,52 @@ int main()
 		//содержимое объекта string в нижний регистр.
 		//Подсказка: класс string - это "почти" контейнер, поэтому для него
 		// определены методы begin() и end()
+        string str = "AAAAAbbBbAAAa";
+        transform(str.cbegin(), str.cend(), str.begin(), [](char c){return c | 0x20;});
+//        for_each(str.begin(), str.end(), [](char &c){c |= 0x20;});
+        cout << str << '\n';
 
 
 		//Заполните list объектами string. С помощью алгоритма transform сформируте
 		//значения "пустого" set, конвертируя строки в нижний регистр
+        list<string> strList = {
+            "MY",
+            "BIG",
+            "BIG",
+            "BIG",
+            "BIG",
+            "STRINGS"
+        };
 	
+        set<string> strSet;
+        transform(strList.cbegin(), strList.cend(), inserter(strSet, strSet.begin()), [](const string &str){
+            string result(str);
+            for_each(result.begin(), result.end(), [](char &c){c |= 0x20;});
+            return result;
+        });
 
 
 
 		stop
-	}
-	{// map
+
+    // map
 		
 		//Сформируйте любым способом вектор с элементами типа string.
 		//Создайте (и распечатайте для проверки) map<string, int>, который будет
 		//содержать упорядоченные по алфавиту строки и
 		//количество повторений каждой строки в векторе
 	
+    map<string, int> strMap;
+    for (const string &str: strList){
+        ++strMap[str];
+    };
 
 
-
-
-
-
+    for (const auto &pair: strMap){
+        cout << pair.first << ": " << pair.second << "\n";
+    }
 
 	}
-
-	
 
 
 	return 0;

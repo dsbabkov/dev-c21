@@ -7,4 +7,5 @@ SOURCES += main.cpp \
     Point.cpp
 
 HEADERS += \
-    Point.h
+    Point.h \
+    ContainerUtils.h

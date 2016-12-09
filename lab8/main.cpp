@@ -10,6 +10,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <algorithm>
 
 
 using namespace std;	
@@ -109,7 +110,11 @@ int main()
 
 	//вектор указателей на Point - vpPoint с начальным размером 5
 	//Подумайте: как корректно заставить эти указатели "указывать" на объекты Point
-        vector<Point *> vpPoint(5);
+        vector<Point *> vpPoint = {
+            new Point{1, 2},
+            new Point{3, 4}
+        };
+        printContainer (vpPoint);
         {
 
         //Подсказка: для вывода на печать значений скорее всего Вам понадобится
@@ -221,6 +226,11 @@ int main()
         vector<char> vChar2;
         for (char c: "qwerrrrty12222r3"){
             vChar2.push_back(c);
+        }
+
+        const char c = 'r';
+        if (std::find(vChar2.cbegin(), vChar2.cend(), c) != vChar2.cend()){
+            vChar2.insert(vChar2.begin(), c);
         }
 	
 	//Вставьте перед каждым элементом вектора vChar2 букву 'W'

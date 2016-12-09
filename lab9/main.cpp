@@ -40,12 +40,11 @@ int main()
 
     std::vector<int> vec = {1, 2, 3, 4, 5};
     std::stack<int, std::vector<int>> stack({vec.crbegin(), vec.crend()});
-    const int &(std::stack<int, std::vector<int>>::*stackTopMethod)() const = &std::stack<int, std::vector<int>>::top;
     std::queue<int> queue({vec.cbegin(), vec.cend()});
     std::priority_queue<int> priority_queue({vec.cbegin(), vec.cend()});
-    printAdapter(stack, stackTopMethod);
-    printAdapter(queue, &std::queue<int>::front);
-    printAdapter(priority_queue, &std::priority_queue<int>::top);
+    printAdapter(stack);
+    printAdapter(queue);
+    printAdapter(priority_queue);
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -133,7 +132,7 @@ int main()
 
 	//г) замените один из КЛЮЧЕЙ на новый (была "Иванова", вышла замуж => стала "Петрова")
 
-    std::map<const char *, int> salaryMap;
+    std::map<const char *, int, CompareStr> salaryMap;
     salaryMap["Pupkin"] = 100;
     salaryMap.insert({"Petrischev", 200});
 
@@ -155,7 +154,7 @@ int main()
     std::vector<std::string> strVec {"pen", "pineapple", "apple", "pen"};
     std::map<std::string, int> strMap;
     for (const std::string &string: strVec){
-        strMap[string];
+        ++strMap[string];
     }
     printAssociative(strMap);
 
@@ -179,28 +178,14 @@ int main()
 		
 
 		//ж)
-    struct Student{
-        std::string lastName;
-        int id;
 
-        bool operator <(const Student &other) const{
-            int compareResult = strcmp(lastName.c_str(), other.lastName.c_str());
-
-            return compareResult == 0 ?
-                        id < other.id :
-                        compareResult < 0;
-        }
+    using Student = std::string;
+    using StudentGroup = std::multiset<Student>;
+    std::map<unsigned, StudentGroup> studentGroups = {
+        {3, {"Ivanov", "Petrov", "Pupkin", "Ivanov"}},
+        {1, {"Klyuev", "Rezov", "Petrov", "Petrov"}}
     };
-
-    struct StudentGroup{
-        int id;
-        std::set<Student> students;
-
-        bool operator < (const StudentGroup &other) const{
-            return id < other.id;
-        }
-    };
-    std::set<StudentGroup> studentGroups;
+    stop
 
 		//создайте структуру данных, которая будет хранить информацию о студенческих группах.
 		//Для каждой группы должны хранится фамилии студентов (по алфавиту). При этом 
