@@ -3,11 +3,14 @@
 //Итераторы. Стандартные алгоритмы. Предикаты.
 
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <list>
 #include <set>
 #include <map>
 #include <algorithm>
+
+#include "Point.h"
 
 using namespace std;	
 #define	  stop {bool tmp{}; tmp = tmp;}
@@ -23,11 +26,23 @@ int main()
 	//Реверсивные итераторы. Сформируйте set<Point>. Подумайте, что
 	//нужно перегрузить в классе Point. Создайте вектор, элементы которого 
 	//являются копиями элементов set, но упорядочены по убыванию
+    set<Point> pointSet{
+        {1, 2},
+        {3, 4},
+        {5, 6},
+        {7, 8}
+    };
 
+    vector<Point> pointVec(pointSet.crbegin(), pointSet.crend());
 
 	//Потоковые итераторы. С помощью ostream_iterator выведите содержимое
 	//vector и set из предыдущего задания на экран.
 
+    ostream_iterator<Point> outIt(cout, ", ");
+    std::copy(pointSet.cbegin(), pointSet.cend(), outIt);
+    std::cout << "\n";
+    std::copy(pointVec.cbegin(), pointVec.cend(), outIt);
+    std::cout << "\n";
 
 	//Итераторы вставки. С помощью возвращаемых функциями:
 	//back_inserter()
