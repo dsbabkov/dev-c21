@@ -48,8 +48,11 @@ int main()
 	//back_inserter()
 	//front_inserter()
 	//inserter()
-	//итераторов вставки добавьте элементы в любой из созданных контейнеров. Подумайте:
+    //итераторов вставки добавьте элементы в любой из созданных контейнеров. Подумайте:
 	//какие из итераторов вставки можно использовать с каждым контейнером.
+    std::copy(pointSet.cbegin(), pointSet.cend(), back_inserter(pointVec));
+    std::copy(pointVec.cbegin(), pointVec.cend(), outIt);
+    std::cout << "\n";
 
 
 
